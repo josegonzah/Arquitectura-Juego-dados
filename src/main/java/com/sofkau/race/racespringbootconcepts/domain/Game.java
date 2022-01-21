@@ -16,6 +16,7 @@ public class Game {
     private boolean state;
     private Integer numberOfPlayers;
     private Integer currentThrow = 0;
+    private List<Integer> scoresArray;
     private GameRepository repository = new MongoGameRepository();
 
     public Game(String id, String title, Integer numberOfThrows, Integer numberOfPlayers) {
@@ -24,6 +25,7 @@ public class Game {
         this.users = new HashMap<>();
         this.numberOfThrows = numberOfThrows;
         this.positions = new ArrayList<>();
+        this.scoresArray = new ArrayList<>();
         this.state = false;
         this.numberOfPlayers = numberOfPlayers;
     }
@@ -32,6 +34,7 @@ public class Game {
         this.id = id;
         this.users = new HashMap<>();
         this.positions = new ArrayList<>();
+        this.scoresArray = new ArrayList<>();
         this.state = false;
     }
 
@@ -64,14 +67,19 @@ public class Game {
             System.out.println(this.state);
             if(true){
                 this.state = false;
-                Collections.sort(users, new Comparator<User>(){
-                    public int compare(User o1, User o2){
-                        return o2.progress().compareTo(o1.progress());
-                    }
-                });
+                scoresArray.add(user.progress());
+                Collections.sort(scoresArray,  Collections.reverseOrder());
                 System.out.println("Se acabo esto");
-                positions.add(user.userName());
+                System.out.println(scoresArray);
 
+            }
+        });
+        this.users.forEach((key2, user2) ->{
+            for(int i=0; i<scoresArray.size(); i++){
+                if(user2.progress() == scoresArray.get(i)){
+                    positions.add(user2.userName());
+                    break;
+                }
             }
         });
 

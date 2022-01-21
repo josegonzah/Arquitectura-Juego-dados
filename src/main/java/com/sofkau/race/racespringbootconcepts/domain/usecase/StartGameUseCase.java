@@ -22,8 +22,8 @@ public class StartGameUseCase implements Function<StartGameCommand, Game> {
             System.out.println("Insufficient amount of players");
             return game;
         }
-        if(game.positions().size() >= 3){
-            System.out.println("Podium already full");
+        if(game.positions().size() >= game.numberOfPlayers()){
+            System.out.println("Game already finished");
             return game;
         }
         if(game.state() == false){
