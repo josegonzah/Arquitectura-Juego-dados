@@ -6,6 +6,7 @@ public class User {
     private String userName;
     private Integer totalScore;
     private Integer NumberOfWins;
+    private Integer currentThrow;
 
     public User(String id, String userName, Integer numberOfWins, int totalScore, String avatar) {
         this.id = id;
@@ -13,14 +14,15 @@ public class User {
         this.totalScore = totalScore;
         this.NumberOfWins = numberOfWins;
         this.avatar = avatar;
+        this.currentThrow = 0;
     }
 
     public static User from(String id, String userName, Integer numberOfWins, Integer progress, String avatar){
         return new User(id, userName, numberOfWins, progress, avatar);
     }
 
-    public void updateProgress(int newProgress){
-        this.totalScore = this.totalScore + newProgress;
+    public void updateScore(int newScore){
+        this.totalScore = this.totalScore + newScore;
     }
 
     public String id() {
@@ -41,6 +43,14 @@ public class User {
 
     public String avatar() {
         return avatar;
+    }
+
+    public Integer currentThrow() {
+        return currentThrow;
+    }
+
+    public void setCurrentThrow(Integer currentThrow) {
+        this.currentThrow = currentThrow;
     }
 
     @Override

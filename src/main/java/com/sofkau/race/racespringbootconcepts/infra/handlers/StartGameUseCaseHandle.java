@@ -23,12 +23,13 @@ public class StartGameUseCaseHandle {
         //While true
         var playing = true;
         while(playing){
-            var race = this.startGameUseCase.apply(command);
-            if(race.podium().size() >= 3){
+            var game = this.startGameUseCase.apply(command);
+            if(!(game.state())){
                 playing = false;
             }
             try{
                 Thread.sleep(3000);
+
             }catch(InterruptedException e){
                 System.out.println(e.toString());
             }

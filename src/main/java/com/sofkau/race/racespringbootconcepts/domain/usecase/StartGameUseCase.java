@@ -22,13 +22,14 @@ public class StartGameUseCase implements Function<StartGameCommand, Game> {
             System.out.println("Insufficient amount of players");
             return game;
         }
-        if(game.podium().size() >= 3){
+        if(game.positions().size() >= 3){
             System.out.println("Podium already full");
             return game;
         }
         if(game.state() == false){
             game.startGame();
         }
+        game.setCurrentThrow(game.currentThrow()+1);
         game.throwAllUsers();
 
         return repository.save(game);

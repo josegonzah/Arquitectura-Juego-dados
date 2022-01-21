@@ -47,9 +47,9 @@ public class MongoGameRepository implements GameRepository {
         var raceDocument = new GameDocument();
         raceDocument.setId(game.id());
         raceDocument.setTitle(game.title());
-        raceDocument.setPositions(game.podium());
+        raceDocument.setPositions(game.positions());
         raceDocument.setNumberOfPlayers(game.numberOfPlayers());
-        raceDocument.setNumberOfThrows(game.trackDistance());
+        raceDocument.setNumberOfThrows(game.numberOfThrows());
         raceDocument.setState(game.state());
         game.users().forEach((key, user)->{
             raceDocument.withUser(user);

@@ -4,11 +4,7 @@ import com.sofkau.race.racespringbootconcepts.domain.factory.GameBuilder;
 import com.sofkau.race.racespringbootconcepts.domain.usecase.GameRepository;
 import com.sofkau.race.racespringbootconcepts.infra.repository.MongoGameRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class Game {
     private String id;
@@ -56,6 +52,29 @@ public class Game {
     }
 
     public void throwAllUsers(){
+        List<String> userIteratorFirst = new ArrayList<>();
+        System.out.println(this.currentThrow);
+        this.users.forEach((key, user)->{
+            userIteratorFirst.add(key);
+            int newProgress = (int)Math.floor(Math.random() * 6 + 1);
+            user.updateScore(newProgress);
+            user.setCurrentThrow(user.currentThrow()+1);
+            var currentThrowGame = user.currentThrow();
+            System.out.println(currentThrowGame);
+            System.out.println(this.state);
+            if(true){
+                this.state = false;
+                Collections.sort(users, new Comparator<User>(){
+                    public int compare(User o1, User o2){
+                        return o2.progress().compareTo(o1.progress());
+                    }
+                });
+                System.out.println("Se acabo esto");
+                positions.add(user.userName());
+
+            }
+        });
+
     }
 
     public void startGame(){
@@ -82,11 +101,11 @@ public class Game {
         return users;
     }
 
-    public Integer trackDistance() {
+    public Integer numberOfThrows() {
         return numberOfThrows;
     }
 
-    public List<String> podium() {
+    public List<String> positions() {
         return positions;
     }
 
@@ -96,6 +115,14 @@ public class Game {
 
     public Integer numberOfPlayers() {
         return numberOfPlayers;
+    }
+
+    public Integer currentThrow() {
+        return currentThrow;
+    }
+
+    public void setCurrentThrow(Integer currentThrow) {
+        this.currentThrow = currentThrow;
     }
 
     @Override
